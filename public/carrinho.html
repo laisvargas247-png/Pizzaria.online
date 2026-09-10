@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,50 +6,184 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Carrinho</title>
+    <title>Meu Carrinho | Pizzaria Online</title>
+
+    <link rel="stylesheet" href="css/carrinho.css">
 
 </head>
 
+
 <body>
 
-    <h1>🛒 Meu Pedido</h1>
 
-    <div id="carrinho"></div>
+    <!-- CABEÇALHO -->
 
-    <h2 id="total"></h2>
+    <header>
+
+        <div class="logo">
+            🍕 Pizzaria Online
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Início
+            </a>
+
+            <a href="cardapio.html">
+                Cardápio
+            </a>
+
+            <a href="carrinho.html" class="ativo">
+                🛒 Carrinho
+            </a>
+
+        </nav>
+
+    </header>
 
 
-    <h2>Seus dados</h2>
+    <!-- CONTEÚDO -->
 
-    <input
-        type="text"
-        id="nome"
-        placeholder="Seu nome"
-    >
+    <main>
 
-    <br><br>
+        <div class="titulo">
 
-    <input
-        type="text"
-        id="telefone"
-        placeholder="Telefone"
-    >
+            <h1>
+                🛒 Seu pedido
+            </h1>
 
-    <br><br>
+            <p>
+                Confira seus produtos antes de finalizar.
+            </p>
 
-    <input
-        type="text"
-        id="endereco"
-        placeholder="Endereço"
-    >
+        </div>
 
-    <br><br>
 
-    <button onclick="finalizarPedido()">
-        Fazer pedido 🍕
-    </button>
+        <div class="layout">
+
+
+            <!-- PRODUTOS -->
+
+            <section class="lista">
+
+                <div id="carrinho">
+
+                    <!-- JavaScript coloca os produtos aqui -->
+
+                </div>
+
+            </section>
+
+
+            <!-- RESUMO -->
+
+            <aside class="resumo">
+
+                <h2>
+                    Resumo do pedido
+                </h2>
+
+
+                <div class="linha">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="subtotal">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <div class="linha">
+
+                    <span>
+                        Entrega
+                    </span>
+
+                    <strong id="entrega">
+                        R$ 5,00
+                    </strong>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="total">
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+
+                <h3>
+                    Seus dados
+                </h3>
+
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Nome completo"
+                >
+
+
+                <input
+                    type="tel"
+                    id="telefone"
+                    placeholder="Telefone"
+                >
+
+
+                <input
+                    type="text"
+                    id="endereco"
+                    placeholder="Endereço para entrega"
+                >
+
+
+                <textarea
+                    id="observacao"
+                    placeholder="Observação do pedido (opcional)"
+                ></textarea>
+
+
+                <button
+                    class="finalizar"
+                    onclick="finalizarPedido()"
+                >
+                    🍕 Fazer pedido
+                </button>
+
+
+                <a
+                    href="cardapio.html"
+                    class="continuar"
+                >
+                    ← Continuar comprando
+                </a>
+
+            </aside>
+
+        </div>
+
+    </main>
 
 
     <script src="js/carrinho.js"></script>

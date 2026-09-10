@@ -2,37 +2,80 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Cardápio - Pizzaria</title>
+    <title>Cardápio | Pizzaria Online</title>
 
     <link rel="stylesheet" href="css/cardapio.css">
-
 </head>
 
 <body>
 
+    <!-- CABEÇALHO -->
+
     <header>
 
-        <h1>🍕 Nosso Cardápio</h1>
+        <div class="logo">
+            🍕 Pizzaria Online
+        </div>
 
         <nav>
             <a href="index.html">Início</a>
-            <a href="cardapio.html">Cardápio</a>
-            <a href="carrinho.html">Carrinho 🛒</a>
+            <a href="cardapio.html" class="ativo">Cardápio</a>
+
+            <a href="carrinho.html">
+                🛒 Carrinho
+                <span id="contador">0</span>
+            </a>
         </nav>
 
     </header>
 
 
+    <!-- BANNER -->
+
+    <section class="banner">
+
+        <div>
+
+            <h1>Nosso Cardápio 🍕</h1>
+
+            <p>
+                Escolha sua pizza favorita e monte seu pedido!
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CARDÁPIO -->
+
     <main>
 
-        <h2>Escolha sua pizza</h2>
+        <div class="titulo">
 
-        <div id="produtos"></div>
+            <span>🍕</span>
+
+            <div>
+                <h2>Pizzas</h2>
+
+                <p>
+                    Feitas na hora com ingredientes selecionados
+                </p>
+            </div>
+
+        </div>
+
+
+        <div id="produtos" class="produtos">
+
+            <p class="carregando">
+                Carregando cardápio...
+            </p>
+
+        </div>
 
     </main>
 

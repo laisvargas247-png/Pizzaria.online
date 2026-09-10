@@ -3,9 +3,14 @@ const path = require("path");
 const { Pool } = require("pg");
 
 const app = express();
+
 const PORT = 3000;
 
+
+// ==========================================
 // CONEXÃO COM O POSTGRESQL
+// ==========================================
+
 const pool = new Pool({
     user: "postgres",
     host: "localhost",
@@ -14,26 +19,51 @@ const pool = new Pool({
     port: 5432
 });
 
+
+// ==========================================
+// CONFIGURAÇÕES
+// ==========================================
+
 app.use(express.json());
 
-// Abrir o site
 app.use(express.static(path.join(__dirname, "public")));
 
 
-// ==========================
-// LISTAR PRODUTOS
-// ==========================
+// ==========================================
+// TESTAR CONEXÃO COM O BANCO
+// ==========================================
+
+pool.connect()
+    .then(() => {
+        console.log("✅ PostgreSQL conectado!");
+    })
+    .catch((erro) => {
+        console.log("❌ Erro ao conectar ao PostgreSQL:");
+        console.log(erro.message);
+    });
+
+
+// ==========================================
+// BUSCAR PRODUTOS
+// ==========================================
 
 app.get("/api/produtos", async (req, res) => {
+
     try {
-        const resultado = await pool.query(
-            "SELECT * FROM produtos WHERE disponivel = TRUE ORDER BY id"
-        );
+
+        const resultado = await pool.query(`
+            SELECT *
+            FROM produtos
+            WHERE disponivel = TRUE
+            ORDER BY id
+        `);
 
         res.json(resultado.rows);
 
     } catch (erro) {
-        console.error(erro);
+
+        console.log(erro);
+
         res.status(500).json({
             erro: "Erro ao buscar produtos"
         });
@@ -41,9 +71,9 @@ app.get("/api/produtos", async (req, res) => {
 });
 
 
-// ==========================
+// ==========================================
 // CRIAR PEDIDO
-// ==========================
+// ==========================================
 
 app.post("/api/pedidos", async (req, res) => {
 
@@ -51,47 +81,52 @@ app.post("/api/pedidos", async (req, res) => {
 
     try {
 
-        // Cadastra cliente
-        const clienteResult = await pool.query(
-            `INSERT INTO clientes (nome, telefone, endereco)
-             VALUES ($1, $2, $3)
-             RETURNING id`,
-            [
-                cliente.nome,
-                cliente.telefone,
-                cliente.endereco
-            ]
-        );
+        // Cadastrar cliente
+        const clienteResult = await pool.query(`
+            INSERT INTO clientes
+            (nome, telefone, endereco)
+            VALUES ($1, $2, $3)
+            RETURNING id
+        `, [
+            cliente.nome,
+            cliente.telefone,
+            cliente.endereco
+        ]);
 
         const clienteId = clienteResult.rows[0].id;
 
 
-        // Cria pedido
-        const pedidoResult = await pool.query(
-            `INSERT INTO pedidos (cliente_id, total)
-             VALUES ($1, $2)
-             RETURNING id`,
-            [clienteId, total]
-        );
+        // Criar pedido
+        const pedidoResult = await pool.query(`
+            INSERT INTO pedidos
+            (cliente_id, total)
+            VALUES ($1, $2)
+            RETURNING id
+        `, [
+            clienteId,
+            total
+        ]);
 
         const pedidoId = pedidoResult.rows[0].id;
 
 
-        // Adiciona os itens
+        // Cadastrar produtos do pedido
         for (const item of itens) {
 
-            await pool.query(
-                `INSERT INTO itens_pedido
+            await pool.query(`
+                INSERT INTO itens_pedido
                 (pedido_id, produto_id, quantidade, preco)
-                VALUES ($1, $2, $3, $4)`,
-                [
-                    pedidoId,
-                    item.id,
-                    item.quantidade,
-                    item.preco
-                ]
-            );
+                VALUES ($1, $2, $3, $4)
+            `, [
+                pedidoId,
+                item.id,
+                item.quantidade,
+                item.preco
+            ]);
         }
+
+
+        console.log(`🍕 Novo pedido recebido: #${pedidoId}`);
 
 
         res.json({
@@ -99,9 +134,10 @@ app.post("/api/pedidos", async (req, res) => {
             pedido: pedidoId
         });
 
+
     } catch (erro) {
 
-        console.error(erro);
+        console.log(erro);
 
         res.status(500).json({
             sucesso: false,
@@ -111,9 +147,9 @@ app.post("/api/pedidos", async (req, res) => {
 });
 
 
-// ==========================
-// PEDIDOS DA COZINHA
-// ==========================
+// ==========================================
+// BUSCAR PEDIDOS PARA A COZINHA
+// ==========================================
 
 app.get("/api/cozinha", async (req, res) => {
 
@@ -125,19 +161,26 @@ app.get("/api/cozinha", async (req, res) => {
                 p.data_pedido,
                 p.total,
                 p.status,
+
                 c.nome AS cliente,
                 c.telefone,
                 c.endereco,
+
                 pr.nome AS produto,
                 ip.quantidade,
                 ip.preco
+
             FROM pedidos p
+
             JOIN clientes c
                 ON p.cliente_id = c.id
+
             JOIN itens_pedido ip
                 ON p.id = ip.pedido_id
+
             JOIN produtos pr
                 ON ip.produto_id = pr.id
+
             ORDER BY p.id DESC
         `);
 
@@ -145,7 +188,7 @@ app.get("/api/cozinha", async (req, res) => {
 
     } catch (erro) {
 
-        console.error(erro);
+        console.log(erro);
 
         res.status(500).json({
             erro: "Erro ao buscar pedidos"
@@ -154,21 +197,28 @@ app.get("/api/cozinha", async (req, res) => {
 });
 
 
-// ==========================
-// ALTERAR STATUS
-// ==========================
+// ==========================================
+// ALTERAR STATUS DO PEDIDO
+// ==========================================
 
 app.put("/api/pedidos/:id/status", async (req, res) => {
 
-    const { status } = req.body;
     const { id } = req.params;
+    const { status } = req.body;
 
     try {
 
-        await pool.query(
-            "UPDATE pedidos SET status = $1 WHERE id = $2",
-            [status, id]
-        );
+        await pool.query(`
+            UPDATE pedidos
+            SET status = $1
+            WHERE id = $2
+        `, [
+            status,
+            id
+        ]);
+
+        console.log(`Pedido #${id}: ${status}`);
+
 
         res.json({
             sucesso: true
@@ -176,21 +226,27 @@ app.put("/api/pedidos/:id/status", async (req, res) => {
 
     } catch (erro) {
 
-        console.error(erro);
+        console.log(erro);
 
         res.status(500).json({
-            erro: "Erro ao atualizar pedido"
+            erro: "Erro ao atualizar status"
         });
     }
 });
 
 
-// ==========================
+// ==========================================
 // INICIAR SERVIDOR
-// ==========================
+// ==========================================
 
 app.listen(PORT, () => {
 
-    console.log(`🍕 Pizzaria funcionando em http://localhost:${PORT}`);
+    console.log("");
+    console.log("🍕 =============================");
+    console.log("🍕  PIZZARIA ONLINE");
+    console.log("🍕 =============================");
+    console.log(`🍕  Site: http://localhost:${PORT}`);
+    console.log("🍕 =============================");
+    console.log("");
 
 });

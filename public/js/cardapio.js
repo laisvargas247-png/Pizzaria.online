@@ -1,4 +1,10 @@
 const produtosDiv = document.getElementById("produtos");
+const contador = document.getElementById("contador");
+
+
+// ===============================
+// CARREGAR PRODUTOS
+// ===============================
 
 async function carregarProdutos() {
 
@@ -10,70 +16,135 @@ async function carregarProdutos() {
 
         produtosDiv.innerHTML = "";
 
+
         produtos.forEach(produto => {
 
-            const div = document.createElement("div");
+            const card = document.createElement("div");
 
-            div.classList.add("produto");
+            card.classList.add("produto");
 
-            div.innerHTML = `
-                <h3>${produto.nome}</h3>
 
-                <p>${produto.descricao}</p>
+            card.innerHTML = `
 
-                <strong>
-                    R$ ${Number(produto.preco).toFixed(2)}
-                </strong>
+                <img
+                    class="produto-imagem"
+                    src="${produto.imagem || 'imagens/pizza.jpg'}"
+                    alt="${produto.nome}"
+                    onerror="this.src='imagens/pizza.jpg'"
+                >
 
-                <br>
+                <div class="produto-info">
 
-                <button onclick='adicionarCarrinho(${JSON.stringify(produto)})'>
-                    Adicionar ao carrinho
-                </button>
+                    <h3>
+                        ${produto.nome}
+                    </h3>
+
+                    <p class="produto-descricao">
+                        ${produto.descricao || "Deliciosa pizza da nossa pizzaria."}
+                    </p>
+
+                    <p class="produto-preco">
+                        R$ ${Number(produto.preco).toFixed(2).replace(".", ",")}
+                    </p>
+
+                    <button
+                        class="btn-adicionar"
+                        onclick='adicionarCarrinho(${JSON.stringify(produto)})'
+                    >
+                        🛒 Adicionar ao carrinho
+                    </button>
+
+                </div>
             `;
 
-            produtosDiv.appendChild(div);
+
+            produtosDiv.appendChild(card);
 
         });
+
+
+        atualizarContador();
 
     } catch (erro) {
 
         console.error(erro);
 
-        produtosDiv.innerHTML =
-            "<p>Erro ao carregar o cardápio.</p>";
+        produtosDiv.innerHTML = `
+            <p>
+                ❌ Não foi possível carregar o cardápio.
+            </p>
+        `;
     }
 }
 
+
+// ===============================
+// ADICIONAR AO CARRINHO
+// ===============================
 
 function adicionarCarrinho(produto) {
 
     let carrinho =
         JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    const itemExistente =
+
+    const existente =
         carrinho.find(item => item.id === produto.id);
 
-    if (itemExistente) {
 
-        itemExistente.quantidade++;
+    if (existente) {
+
+        existente.quantidade++;
 
     } else {
 
         carrinho.push({
+
             id: produto.id,
+
             nome: produto.nome,
+
             preco: Number(produto.preco),
+
             quantidade: 1
+
         });
+
     }
+
 
     localStorage.setItem(
         "carrinho",
         JSON.stringify(carrinho)
     );
 
-    alert("Pizza adicionada ao carrinho! 🍕");
+
+    atualizarContador();
+
+
+    alert("🍕 Pizza adicionada ao carrinho!");
+}
+
+
+// ===============================
+// CONTADOR
+// ===============================
+
+function atualizarContador() {
+
+    const carrinho =
+        JSON.parse(localStorage.getItem("carrinho")) || [];
+
+
+    const quantidade =
+        carrinho.reduce(
+            (total, item) =>
+                total + item.quantidade,
+            0
+        );
+
+
+    contador.textContent = quantidade;
 }
 
 

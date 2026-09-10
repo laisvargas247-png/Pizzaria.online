@@ -1,52 +1,297 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f6f6;
+    color: #222;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
 header {
-    background: #b30000;
+    background: #b40000;
     color: white;
-    padding: 20px;
-    text-align: center;
+
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin: 10px;
+    font-size: 16px;
+
+    transition: 0.2s;
 }
+
+nav a:hover {
+    opacity: 0.75;
+}
+
+nav a.ativo {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+}
+
+
+/* CONTADOR DO CARRINHO */
+
+#contador {
+    background: white;
+    color: #b40000;
+
+    border-radius: 50%;
+
+    min-width: 20px;
+    height: 20px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   BANNER
+========================= */
+
+.banner {
+    height: 230px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.55)
+        ),
+        url("../imagens/pizza.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: white;
+}
+
+.banner h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.banner p {
+    font-size: 18px;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
 
 main {
-    padding: 30px;
-    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+
+    padding: 45px 20px;
 }
 
-#produtos {
+.titulo {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
 }
+
+.titulo span {
+    font-size: 40px;
+}
+
+.titulo h2 {
+    font-size: 30px;
+}
+
+.titulo p {
+    color: #777;
+    margin-top: 5px;
+}
+
+
+/* =========================
+   PRODUTOS
+========================= */
+
+.produtos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* CARD DA PIZZA */
 
 .produto {
     background: white;
-    width: 250px;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.12);
+
+    transition: 0.25s;
+}
+
+.produto:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.18);
+}
+
+
+/* IMAGEM */
+
+.produto-imagem {
+    width: 100%;
+    height: 190px;
+
+    object-fit: cover;
+
+    background: #ddd;
+}
+
+
+/* INFORMAÇÕES */
+
+.produto-info {
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px #ccc;
 }
 
 .produto h3 {
-    color: #b30000;
+    color: #b40000;
+
+    font-size: 21px;
+
+    margin-bottom: 10px;
 }
 
-.produto button {
-    margin-top: 15px;
-    background: #b30000;
+.produto-descricao {
+    color: #666;
+
+    min-height: 45px;
+
+    line-height: 1.4;
+}
+
+.produto-preco {
+    font-size: 21px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+
+    color: #222;
+}
+
+
+/* BOTÃO */
+
+.btn-adicionar {
+    width: 100%;
+
+    background: #b40000;
+
     color: white;
+
     border: none;
-    padding: 10px;
-    border-radius: 6px;
+
+    padding: 13px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-adicionar:hover {
+    background: #8f0000;
+}
+
+
+/* CARREGANDO */
+
+.carregando {
+    text-align: center;
+
+    font-size: 18px;
+
+    color: #777;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 20px;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+    }
+
 }

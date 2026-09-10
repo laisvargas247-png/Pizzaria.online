@@ -1,0 +1,419 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f5f5f5;
+
+    color: #222;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+header {
+    background: #b40000;
+
+    color: white;
+
+    min-height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 8%;
+}
+
+.logo {
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+}
+
+nav a.ativo {
+    font-weight: bold;
+
+    border-bottom: 2px solid white;
+
+    padding-bottom: 5px;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+main {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 40px 20px;
+}
+
+.titulo {
+    margin-bottom: 30px;
+}
+
+.titulo h1 {
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout {
+    display: grid;
+
+    grid-template-columns: 1fr 380px;
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   LISTA DO CARRINHO
+========================= */
+
+.lista {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.1);
+}
+
+
+/* PRODUTO */
+
+.item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h3 {
+    color: #b40000;
+
+    margin-bottom: 8px;
+}
+
+.item-info p {
+    color: #777;
+}
+
+
+/* PREÇO */
+
+.item-preco {
+    font-weight: bold;
+
+    font-size: 18px;
+}
+
+
+/* QUANTIDADE */
+
+.quantidade {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.quantidade button {
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #b40000;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.quantidade span {
+    font-weight: bold;
+
+    min-width: 20px;
+
+    text-align: center;
+}
+
+
+/* REMOVER */
+
+.remover {
+    background: none !important;
+
+    color: #b40000 !important;
+
+    font-size: 13px !important;
+
+    width: auto !important;
+}
+
+
+/* =========================
+   RESUMO
+========================= */
+
+.resumo {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.1);
+
+    position: sticky;
+
+    top: 20px;
+}
+
+.resumo h2 {
+    margin-bottom: 25px;
+}
+
+.resumo h3 {
+    margin-top: 25px;
+
+    margin-bottom: 15px;
+}
+
+.linha {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+    color: #555;
+}
+
+hr {
+    border: none;
+
+    border-top: 1px solid #ddd;
+
+    margin: 20px 0;
+}
+
+.total {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+.total strong {
+    color: #b40000;
+}
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+.resumo input,
+.resumo textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.resumo input:focus,
+.resumo textarea:focus {
+    border-color: #b40000;
+}
+
+.resumo textarea {
+    height: 80px;
+
+    resize: none;
+}
+
+
+/* =========================
+   BOTÃO FINALIZAR
+========================= */
+
+.finalizar {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #b40000;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.finalizar:hover {
+    background: #8f0000;
+}
+
+
+/* CONTINUAR */
+
+.continuar {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 15px;
+
+    color: #b40000;
+
+    text-decoration: none;
+}
+
+
+/* =========================
+   CARRINHO VAZIO
+========================= */
+
+.vazio {
+    text-align: center;
+
+    padding: 50px 20px;
+}
+
+.vazio h2 {
+    margin-bottom: 10px;
+}
+
+.vazio p {
+    color: #777;
+
+    margin-bottom: 20px;
+}
+
+.vazio a {
+    display: inline-block;
+
+    background: #b40000;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 12px 20px;
+
+    border-radius: 7px;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 850px) {
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .resumo {
+        position: static;
+    }
+
+    header {
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 20px;
+    }
+
+    .item {
+        flex-wrap: wrap;
+    }
+
+}
