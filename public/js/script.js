@@ -1,0 +1,1 @@
+console.log("🍕 Pizzaria Online iniciada!");

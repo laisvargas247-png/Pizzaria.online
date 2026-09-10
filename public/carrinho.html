@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Carrinho</title>
+
+</head>
+
+<body>
+
+    <h1>🛒 Meu Pedido</h1>
+
+    <div id="carrinho"></div>
+
+    <h2 id="total"></h2>
+
+
+    <h2>Seus dados</h2>
+
+    <input
+        type="text"
+        id="nome"
+        placeholder="Seu nome"
+    >
+
+    <br><br>
+
+    <input
+        type="text"
+        id="telefone"
+        placeholder="Telefone"
+    >
+
+    <br><br>
+
+    <input
+        type="text"
+        id="endereco"
+        placeholder="Endereço"
+    >
+
+    <br><br>
+
+    <button onclick="finalizarPedido()">
+        Fazer pedido 🍕
+    </button>
+
+
+    <script src="js/carrinho.js"></script>
+
+</body>
+
+</html>

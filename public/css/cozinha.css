@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #222;
+    color: white;
+    margin: 0;
+}
+
+header {
+    background: #b30000;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 30px;
+}
+
+#pedidos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pedido {
+    background: white;
+    color: #222;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.pedido h2 {
+    color: #b30000;
+}
+
+.pedido button {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
