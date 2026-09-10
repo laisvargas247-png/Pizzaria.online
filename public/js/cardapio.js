@@ -26,12 +26,7 @@ async function carregarProdutos() {
 
             card.innerHTML = `
 
-                <img
-                    class="produto-imagem"
-                    src="${produto.imagem || 'imagens/pizza.jpg'}"
-                    alt="${produto.nome}"
-                    onerror="this.src='imagens/pizza.jpg'"
-                >
+            
 
                 <div class="produto-info">
 

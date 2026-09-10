@@ -187,17 +187,6 @@ main {
 }
 
 
-/* IMAGEM */
-
-.produto-imagem {
-    width: 100%;
-    height: 190px;
-
-    object-fit: cover;
-
-    background: #ddd;
-}
-
 
 /* INFORMAÇÕES */
 
